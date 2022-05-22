@@ -1,0 +1,86 @@
+paths:
+  apps:
+    post:
+      tags:
+        - apps
+      summary: Create an application
+      description: Create a new application to obtain OAuth2 credentials.
+      operationId: apps_post
+      parameters:
+        - name: client_name
+          in: query
+          description: A name for your application
+          required: true
+          style: form
+          schema:
+            type: string
+        - name: redirect_uris
+          in: query
+          description: Where the user should be redirected after authorization. To display the authorization code to the user instead of redirecting to a web page, use `urn:ietf:wg:oauth:2.0:oob` in this parameter.
+          required: true
+          style: form
+          schema:
+            type: string
+        - name: scopes
+          in: query
+          description: Space separated list of scopes. If none is provided, defaults to `read`.
+          style: form
+          schema:
+            type: string
+        - name: website
+          in: query
+          description: A URL to the homepage of your app
+          style: form
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Store the `client_id` and `client_secret` in your cache, as these will be used to obtain OAuth tokens.
+          content:
+            application/json:
+              schema:
+                $ref: "../entities/application.yaml#/Application"
+              example:
+                client_id: TWhM-tNSuncnqN7DBJmoyeLnk6K3iJJ71KKXxgL1hPM
+                client_secret: ZEaFUFmF0umgBX1qKJDjaU99Q31lDkOU8NutzTOoliw
+                id: '563419'
+                name: test app
+                redirect_uri: urn:ietf:wg:oauth:2.0:oob
+                vapid_key: BCk-QqERU0q-CfYZjcuB6lnyyOYfJ2AifKqfeGIm7Z-HiTU5T9eTG5GxVA0_OH5mMlI4UkkDTpaZwozy0TzdZ2M=
+                website: null
+        '422':
+          description: If a required parameter is missing or improperly formatted, the request will fail.
+          content:
+            application/json:
+              schema:
+                $ref: "../entities/error.yaml#/Error"
+              example:
+                error: "Validation failed: Redirect URI must be an absolute URI."
+  apps_verify_credentials:
+    get:
+      tags:
+        - apps
+      summary: Verify your app works
+      description: Confirm that the app's OAuth2 credentials work.
+      operationId: apps_verify_credentials
+      security:
+        - app-token: []
+      responses:
+        '200':
+          description: If the Authorization header was provided with a valid token, you should see your app returned as an Application entity.
+          content:
+            application/json:
+              schema:
+                $ref: "../entities/application.yaml#/Application"
+              example:
+                name: test app
+                website: ""
+                vapid_key: "BCk-QqERU0q-CfYZjcuB6lnyyOYfJ2AifKqfeGIm7Z-HiTU5T9eTG5GxVA0_OH5mMlI4UkkDTpaZwozy0TzdZ2M="
+        '401':
+          description: If the Authorization header contains an invalid token, is malformed, or is not present, an error will be returned indicating an authorization failure.
+          content:
+            application/json:
+              schema:
+                $ref: "../entities/error.yaml#/Error"
+              example:
+                error: The access token is invalid

@@ -1,0 +1,62 @@
+openapi: 3.0.0
+info:
+  title: Mastodon API
+  version: 3.5.2
+paths:
+  /api/v1/apps:
+    $ref: "paths/apps.yaml#/paths/apps"
+  /api/v1/apps/verify_credentials:
+    $ref: "paths/apps.yaml#/paths/apps_verify_credentials"
+components:
+  schemas:
+    Account:
+      $ref: "entities/account.yaml#/Account"
+    Emoji:
+      $ref: "entities/emoji.yaml#/Emoji"
+    Field:
+      $ref: "entities/field.yaml#/Field"
+    Source:
+      $ref: "entities/source.yaml#/Source"
+    Token:
+      $ref: "entities/token.yaml#/Token"
+  securitySchemes:
+    app-token:
+      type: http
+      scheme: bearer
+    oauth:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: /oauth/authorize
+          tokenUrl: /oauth/token
+          scopes:
+            "read:accounts": read accounts
+            "write:accounts": write accounts
+            "read:blocks": read blocks
+            "write:blocks": write blocks
+            "read:bookmarks": read bookmarks
+            "write:bookmarks": write bookmarks
+            "write:conversations": write conversations
+            "read:favourites": read favourites
+            "write:favourites": write favourites
+            "read:filters": read filters
+            "write:filters": write filters
+            "read:follows": read follows
+            "write:follows": write follows
+            "read:lists": read lists
+            "write:lists": write lists
+            "write:media": write media
+            "read:mutes": read mutes
+            "write:mutes": write mutes
+            "read:notifications": read notifications
+            "write:notifications": write notifications
+            "write:reports": write reports
+            "read:search": read search	
+            "read:statuses": read statuses
+            "write:statuses": write statuses
+            "admin:read": admin read
+            "admin:write": admin write
+            "admin:read:accounts": read accounts
+            "admin:write:accounts": write accounts
+            "admin:read:reports": read reports
+            "admin:write:reports": write reports

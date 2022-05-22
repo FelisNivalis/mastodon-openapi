@@ -1,0 +1,12 @@
+Error:
+  type: object
+  example:
+    error: invalid_grant
+    error_description: The provided authorization grant is invalid, expired, revoked, does not match the redirection URI used in the authorization request, or was issued to another client.
+  properties:
+    error:
+      type: string
+      description: The error message.
+    error_description:
+      type: string
+      description: A longer description of the error, mainly provided with the OAuth API.

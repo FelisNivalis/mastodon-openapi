@@ -1,0 +1,21 @@
+Token:
+  type: object
+  example:
+    access_token: ZA-Yj3aBD8U8Cm7lKUp-lm9O9BmDgdhHzDeqsY8tlL0
+    created_at: 1573979017
+    scope: read write follow push
+    token_type: Bearer
+  properties:
+    access_token:
+      description: An OAuth token to be used for authorization.
+      type: string
+    token_type:
+      description: The OAuth token type. Mastodon uses Bearer tokens.
+      type: string
+    scope:
+      description: The OAuth scopes granted by this token, space-separated.
+      type: string
+    created_at:
+      description: When the token was generated.
+      type: integer
+      format: timestamp

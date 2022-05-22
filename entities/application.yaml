@@ -1,0 +1,23 @@
+Application:
+  type: object
+  example:
+    name: test app
+    website: ""
+    vapid_key: "BCk-QqERU0q-CfYZjcuB6lnyyOYfJ2AifKqfeGIm7Z-HiTU5T9eTG5GxVA0_OH5mMlI4UkkDTpaZwozy0TzdZ2M="
+  properties:
+    name:
+      description: The name of your application.
+      type: string
+    website:
+      description: The website associated with your application.
+      type: string
+      format: URL
+    vapid_key:
+      description: Used for Push Streaming API. Returned with POST /api/v1/apps. Equivalent to PushSubscription#server_key
+      type: string
+    client_id:
+      description: Client ID key, to be used for obtaining OAuth tokens
+      type: string
+    client_secret:
+      description: Client secret key, to be used for obtaining OAuth tokens
+      type: string
