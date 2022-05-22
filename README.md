@@ -1,0 +1,2 @@
+# mastodon-openapi
+Mastodon OpenAPI
